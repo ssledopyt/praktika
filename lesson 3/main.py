@@ -5,10 +5,16 @@ try:
     cursor = sqlite_connection.cursor()
     print("База данных создана и успешно подключена к sqlite")
 
-    sqlite_select_query = "SELECT sqlite_version();"
-    cursor.execute(sqlite_select_query)
-    record = cursor.fetchall()
-    print("версия базы данных sqlite: ", record)
+    cursor.execute("""
+    SELECT * FROM test
+    """)
+    objects = cursor.fetchall()
+    for object in objects:
+        for value in object:
+            print(value)
+
+    sqlite_connection.commit()
+
     cursor.close()
 
 except sqlite3.Error as error:
